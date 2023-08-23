@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import AppBar from "@mui/material/AppBar";
@@ -16,6 +17,8 @@ import MenuItem from "@mui/material/MenuItem";
 
 import ThemeSwitcher from "../components/Switch/ThemeSwitcher";
 
+import { toggleTheme } from "../store/theme/theme.action";
+
 // LOGO
 import logo from "../assets/logo/logo.svg";
 
@@ -23,8 +26,12 @@ const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Logout"];
 
 const Header = () => {
+  const dispatch = useDispatch();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [themeChecked, setThemeChecked] = useState(
+    localStorage.getItem("theme") === "dark"
+  );
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -41,7 +48,10 @@ const Header = () => {
     setAnchorElUser(null);
   };
 
-  const handleChangeTheme = () => {};
+  const handleChangeTheme = (e) => {
+    dispatch(toggleTheme(e.target.checked));
+    setThemeChecked((prevState) => !prevState);
+  };
 
   return (
     <AppBar position="static">
@@ -137,7 +147,11 @@ const Header = () => {
               onClose={handleCloseUserMenu}
             >
               <MenuItem>
-                Theme: <ThemeSwitcher onChange={handleChangeTheme} />
+                Theme:{" "}
+                <ThemeSwitcher
+                  onChange={handleChangeTheme}
+                  checked={themeChecked}
+                />
               </MenuItem>
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
