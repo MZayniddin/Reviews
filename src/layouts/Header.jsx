@@ -13,13 +13,14 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+
+import ThemeSwitcher from "../components/Switch/ThemeSwitcher";
 
 // LOGO
 import logo from "../assets/logo/logo.svg";
 
 const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Profile", "Logout"];
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -40,27 +41,16 @@ const Header = () => {
     setAnchorElUser(null);
   };
 
+  const handleChangeTheme = () => {};
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography
-            noWrap
-            component={Link}
-            to="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            <img width={120} src={logo} alt="Reviews Logo" />
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+        <Toolbar
+          disableGutters
+          sx={{ display: { xs: "flex" }, justifyContent: "space-between" }}
+        >
+          <Box sx={{ display: { xs: "block", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -96,25 +86,18 @@ const Header = () => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+
           <Typography
-            variant="h5"
             noWrap
-            component="a"
-            href="/"
+            component={Link}
+            to="/"
             sx={{
               mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
             }}
           >
-            LOGO
+            <img width={130} src={logo} alt="Reviews Logo" />
           </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
@@ -125,6 +108,10 @@ const Header = () => {
                 {page}
               </Button>
             ))}
+          </Box>
+
+          <Box>
+            <Typography>Hello world</Typography>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -149,6 +136,9 @@ const Header = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
+              <MenuItem>
+                Theme: <ThemeSwitcher onChange={handleChangeTheme} />
+              </MenuItem>
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
