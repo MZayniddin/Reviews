@@ -1,5 +1,5 @@
-import { Container, InputAdornment, TextField } from "@mui/material";
 import { useState } from "react";
+import { InputAdornment, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 const SearchBar = () => {
@@ -17,7 +17,7 @@ const SearchBar = () => {
       label="Search"
       value={searchTerm}
       onChange={handleChange}
-      sx={{ width: 600 }}
+      sx={{ maxWidth: 600, width: "80%" }}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
