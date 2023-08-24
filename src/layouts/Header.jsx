@@ -30,6 +30,7 @@ const settings = ["profile", "logout"];
 const Header = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const [user, setUser] = useState(localStorage.getItem("profile") || null);
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [themeChecked, setThemeChecked] = useState(
@@ -39,6 +40,7 @@ const Header = () => {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -100,43 +102,28 @@ const Header = () => {
             </Menu>
           </Box>
 
-          <Typography
-            noWrap
-            component={Link}
-            to="/"
-            sx={{
-              mr: 2,
-            }}
-          >
+          <Typography noWrap component={Link} to="/">
             <img width={130} src={logo} alt="Reviews Logo" />
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
-
-          <Box sx={{ display: "flex", alignItems: "center", mr: 2, gap: 1 }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <ThemeSwitcher
               onChange={handleChangeTheme}
               checked={themeChecked}
             />
             <LanguageSelect />
-          </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title={t("open_settings")}>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="" />
-              </IconButton>
-            </Tooltip>
+            {user ? (
+              <Tooltip title={t("open_settings")}>
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="" />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <Button sx={{ color: "white" }} component={Link} to="/auth">
+                Sign in
+              </Button>
+            )}
 
             <Menu
               sx={{ mt: "45px" }}
