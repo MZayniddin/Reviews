@@ -6,6 +6,7 @@ import { store } from "./store/store";
 
 import App from "./App";
 
+import "./utils/locales/i18next";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(

@@ -11,7 +11,7 @@ const ThemeSwitcher = styled(Switch)(({ theme }) => ({
     transform: "translateX(3px)",
     "&.Mui-checked": {
       color: "#fff",
-      transform: "translateX(20px)",
+      transform: "translateX(15px)",
       "& .MuiSwitch-thumb:before": {
         backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
           "#fff"
