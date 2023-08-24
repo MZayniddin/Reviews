@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -24,10 +25,11 @@ import logo from "../assets/logo/logo.svg";
 import LanguageSelect from "../components/Select/LanguageSelect";
 
 const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Logout"];
+const settings = ["profile", "logout"];
 
 const Header = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [themeChecked, setThemeChecked] = useState(
@@ -130,7 +132,7 @@ const Header = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title={t("open_settings")}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="" />
               </IconButton>
@@ -154,7 +156,7 @@ const Header = () => {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Typography textAlign="center">{t(setting)}</Typography>
                 </MenuItem>
               ))}
             </Menu>

@@ -1,3 +1,5 @@
 {
-    "logout": "Logout"
+  "logout": "Logout",
+  "open_settings": "Open settings",
+  "profile": "Profile"
 }
