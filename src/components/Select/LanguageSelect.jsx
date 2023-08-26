@@ -34,7 +34,6 @@ const LanguageSelect = () => {
           </MenuItem>
         ))}
       </Select>
-      {/* <FormHelperText>Language</FormHelperText> */}
     </div>
   );
 };

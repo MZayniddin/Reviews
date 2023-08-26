@@ -1,11 +1,21 @@
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import SearchBar from "../SearchBar/SearchBar";
 import { useTranslation } from "react-i18next";
 
 const Intro = () => {
   const { t } = useTranslation();
   return (
-    <section className="py-[120px] md:py-[150px] flex flex-col justify-center items-center text-center">
+    <Box
+      component="section"
+      sx={{
+        py: { xs: "120px", md: "150px" },
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+      }}
+    >
       <Typography variant="h1" fontSize={{ xs: 30, sm: 48, md: 60 }} mb={2}>
         {t("intro_slogan")}
       </Typography>
@@ -13,7 +23,7 @@ const Intro = () => {
         {t("intro_motto")}
       </Typography>
       <SearchBar />
-    </section>
+    </Box>
   );
 };
 

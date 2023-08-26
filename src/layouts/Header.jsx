@@ -17,12 +17,12 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 
 import ThemeSwitcher from "../components/Switch/ThemeSwitcher";
+import LanguageSelect from "../components/Select/LanguageSelect";
 
 import { toggleTheme } from "../store/theme/theme.action";
 
 // LOGO
 import logo from "../assets/logo/logo.svg";
-import LanguageSelect from "../components/Select/LanguageSelect";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["profile", "logout"];

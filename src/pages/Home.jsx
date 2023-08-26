@@ -1,10 +1,11 @@
+import { Container } from "@mui/material";
 import Intro from "../components/Intro/Intro";
 
 const Home = () => {
   return (
-    <main>
+    <Container component="main">
       <Intro />
-    </main>
+    </Container>
   );
 };
 

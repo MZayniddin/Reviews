@@ -1,10 +1,12 @@
+import { Container } from "@mui/material";
+import AuthForm from "../components/Form/AuthForm";
 
 const Auth = () => {
   return (
-    <div>
-        
-    </div>
-  )
-}
+    <Container component="main" maxWidth="xs">
+      <AuthForm />
+    </Container>
+  );
+};
 
-export default Auth
+export default Auth;
