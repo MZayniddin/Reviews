@@ -61,9 +61,9 @@ const Header = () => {
   };
 
   useEffect(() => {
-    const token = user?.token;
+    // const token = user?.token;
 
-    // if (token) {
+    // if (token) {s
     //   try {
     //   } catch (error) {
     //   }
@@ -71,8 +71,6 @@ const Header = () => {
 
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [user?.token, location]);
-
-  console.log(user);
 
   return (
     <AppBar position="static">
@@ -132,7 +130,7 @@ const Header = () => {
             {user ? (
               <Tooltip title={t("open_settings")}>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="" />
+                  <Avatar alt="Remy Sharp" src={user?.data?.picture} />
                 </IconButton>
               </Tooltip>
             ) : (
