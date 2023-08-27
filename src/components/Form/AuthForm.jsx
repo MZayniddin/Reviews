@@ -1,16 +1,21 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import { Paper, Typography, Avatar, Button, FormControl } from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 import { useGoogleLogin } from "@react-oauth/google";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { googleAuth } from "../../store/auth/auth.action";
+
 import { FaFacebookF } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+
 import Input from "./Input";
 
 const AuthForm = () => {
+  const dispatch = useDispatch();
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -18,10 +23,10 @@ const AuthForm = () => {
 
   const handleShowPassword = () => setShowPassword((state) => !state);
 
-  const login = useGoogleLogin({
+  const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
-        // dispatch(auth(tokenResponse?.access_token));
+        dispatch(googleAuth(tokenResponse?.access_token));
         // navigate("/");
       } catch (error) {
         console.log(error);
@@ -87,11 +92,10 @@ const AuthForm = () => {
           handleChange={handleChange}
           handleShowPassword={handleShowPassword}
         />
-        {/* <GoogleLogin /> */}
         <FacebookLogin
           appId="1485872782182119"
           callback={responseFacebook}
-          autoLoad={true}
+        //   autoLoad={true}
           render={(renderProps) => (
             <Button
               sx={{ display: "flex", gap: 1 }}
@@ -106,7 +110,7 @@ const AuthForm = () => {
         />
         <Button
           sx={{ display: "flex", gap: 1 }}
-          onClick={login}
+          onClick={googleLogin}
           variant="contained"
           color="primary"
           fullWidth

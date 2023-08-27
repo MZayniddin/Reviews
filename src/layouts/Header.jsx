@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -29,6 +29,7 @@ const settings = ["profile", "logout"];
 
 const Header = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const { t } = useTranslation();
   const [user, setUser] = useState(localStorage.getItem("profile") || null);
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -37,26 +38,41 @@ const Header = () => {
     localStorage.getItem("theme") === "dark"
   );
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+  const handleOpenNavMenu = (event) => setAnchorElNav(event.currentTarget);
 
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+  const handleOpenUserMenu = (event) => setAnchorElUser(event.currentTarget);
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  const handleCloseNavMenu = () => setAnchorElNav(null);
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  const handleCloseUserMenu = () => setAnchorElUser(null);
 
   const handleChangeTheme = (e) => {
     dispatch(toggleTheme(e.target.checked));
     setThemeChecked((prevState) => !prevState);
   };
+
+  const handleLogout = () => {
+    dispatch({ type: "auth/LOGOUT" });
+    setUser(null);
+  };
+
+  const handleUserMenu = (e) => {
+    if (e.target.dataset.name === "logout") handleLogout();
+  };
+
+  useEffect(() => {
+    const token = user?.token;
+
+    // if (token) {
+    //   try {
+    //   } catch (error) {
+    //   }
+    // }
+
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, [user?.token, location]);
+
+  console.log(user);
 
   return (
     <AppBar position="static">
@@ -143,7 +159,13 @@ const Header = () => {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{t(setting)}</Typography>
+                  <Typography
+                    onClick={handleUserMenu}
+                    data-name={setting}
+                    textAlign="center"
+                  >
+                    {t(setting)}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
