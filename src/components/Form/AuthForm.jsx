@@ -7,7 +7,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useGoogleLogin } from "@react-oauth/google";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
-import { googleAuth } from "../../store/auth/auth.action";
+import { googleAuth, facebookAuth } from "../../store/auth/auth.action";
 
 import { FaFacebookF } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -27,7 +27,6 @@ const AuthForm = () => {
     onSuccess: async (tokenResponse) => {
       try {
         dispatch(googleAuth(tokenResponse?.access_token));
-        // navigate("/");
       } catch (error) {
         console.log(error);
       }
@@ -35,7 +34,11 @@ const AuthForm = () => {
   });
 
   const responseFacebook = (response) => {
-    console.log(response);
+    try {
+      dispatch(facebookAuth(response));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleChange = () => {};
@@ -95,7 +98,8 @@ const AuthForm = () => {
         <FacebookLogin
           appId="1485872782182119"
           callback={responseFacebook}
-        //   autoLoad={true}
+          fields="name,email,picture"
+          autoLoad={true}
           render={(renderProps) => (
             <Button
               sx={{ display: "flex", gap: 1 }}
