@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { fetchReviews } from "../store/review/review.action";
 
 import Intro from "../components/Intro/Intro";
+import RecentReviews from "../components/recent-reviews/RecentReviews";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const Home = () => {
   return (
     <Container component="main">
       <Intro />
+      <RecentReviews />
     </Container>
   );
 };

@@ -5,7 +5,8 @@ export const fetchReviews = () => async (dispatch) => {
   try {
     dispatch({ type: REVIEWS_ACTION_TYPES.REVIEWS_START_LOADING });
 
-    const { data } = await api.fetchAllReviews();
+    let { data } = await api.fetchAllReviews();
+
     dispatch({ type: REVIEWS_ACTION_TYPES.FETCH_REVIEWS, payload: data });
 
     dispatch({ type: REVIEWS_ACTION_TYPES.REVIEWS_END_LOADING });
