@@ -2,6 +2,9 @@ import axios from "axios";
 
 const API = axios.create({ baseURL: "http://localhost:3000" });
 
+// REVIEWS
+export const fetchAllReviews = () => API.get("/review/list");
+
 // AUTH
 export const googleLogin = (token) =>
   API.get(
