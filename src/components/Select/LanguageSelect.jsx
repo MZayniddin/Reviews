@@ -18,8 +18,6 @@ const LanguageSelect = () => {
     <div>
       <Select
         size="small"
-        labelId="demo-simple-select-filled-label"
-        id="demo-simple-select-filled"
         value={activeLang}
         onChange={changeLang}
         sx={{ textTransform: "uppercase" }}

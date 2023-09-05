@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import decode from "jwt-decode";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -29,6 +30,7 @@ const settings = ["profile", "logout"];
 
 const Header = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
   const [user, setUser] = useState(localStorage.getItem("profile") || null);
@@ -58,16 +60,21 @@ const Header = () => {
 
   const handleUserMenu = (e) => {
     if (e.target.dataset.name === "logout") handleLogout();
+    if (e.target.dataset.name === "profile") navigate("/profile");
   };
 
   useEffect(() => {
-    // const token = user?.token;
+    const token = user?.token;
 
-    // if (token) {s
-    //   try {
-    //   } catch (error) {
-    //   }
-    // }
+    if (token) {
+      try {
+        const decodedToken = decode(token);
+
+        if (decodedToken.exp * 1000 < new Date().getTime()) handleLogout();
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [user?.token, location]);

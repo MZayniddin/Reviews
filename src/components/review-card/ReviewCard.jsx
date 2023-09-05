@@ -24,7 +24,7 @@ const ReviewCard = ({ review }) => {
           </Typography>
           <Box sx={{ display: "flex", gap: 1 }}>
             <Typography variant="body2">
-              {creator.displayName} reviewed
+              {creator?.displayName} reviewed
             </Typography>
             <Typography variant="body2" fontWeight="bold">
               {name}

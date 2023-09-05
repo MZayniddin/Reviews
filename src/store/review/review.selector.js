@@ -11,3 +11,8 @@ export const selectReviewsIsLoading = createSelector(
   [selectReviewReducer],
   (reviewsSlice) => reviewsSlice.isLoading
 );
+
+export const selectReviewCategories = createSelector(
+  [selectReviewReducer],
+  (reviewsSlice) => reviewsSlice.categories
+);

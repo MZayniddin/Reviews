@@ -3,6 +3,7 @@ import { AUTH_ACTION_TYPES } from "./auth.types";
 
 export const googleAuth = (token) => async (dispatch) => {
   try {
+    console.log(token)
     const { data } = await api.googleLogin(token);
     console.log(data);
     dispatch({

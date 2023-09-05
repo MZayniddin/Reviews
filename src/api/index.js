@@ -2,8 +2,21 @@ import axios from "axios";
 
 const API = axios.create({ baseURL: "http://localhost:3000" });
 
+API.interceptors.request.use((req) => {
+  if (localStorage.getItem("profile")) {
+    req.headers.Authorization = `Bearer ${
+      JSON.parse(localStorage.getItem("profile")).token
+    }`;
+  }
+
+  return req;
+});
+
 // REVIEWS
 export const fetchAllReviews = () => API.get("/review/list");
+export const getUserReviews = (category) =>
+  API.get(`/review/profile/?category=${category}`);
+export const fetchReviewCategories = () => API.get("/category");
 
 // AUTH
 export const googleLogin = (token) =>
