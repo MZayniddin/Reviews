@@ -16,10 +16,12 @@ import { fetchUserReviews, getCategories } from "../store/review/review.action";
 import {
   selectReviewCategories,
   selectReviews,
+  selectReviewsIsLoading,
 } from "../store/review/review.selector";
 
 import UserReviews from "../components/user-reviews/UserReviews";
 import ReviewCard from "../components/review-card/ReviewCard";
+import Spinner from "../components/Spinner/Spinner";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -38,6 +40,9 @@ const Profile = () => {
   }, []);
 
   const reviews = useSelector(selectReviews);
+  const isLoading = useSelector(selectReviewsIsLoading);
+
+  if (isLoading) return <Spinner />;
 
   return (
     <Container sx={{ py: 5 }} component="main">
