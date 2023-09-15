@@ -15,11 +15,11 @@ export const fetchReviews = () => async (dispatch) => {
   }
 };
 
-export const fetchUserReviews = (category) => async (dispatch) => {
+export const fetchUserReviews = (category, sortType) => async (dispatch) => {
   try {
     dispatch({ type: REVIEWS_ACTION_TYPES.REVIEWS_START_LOADING });
 
-    const { data } = await api.getUserReviews(category);
+    const { data } = await api.getUserReviews(category, sortType);
 
     dispatch({ type: REVIEWS_ACTION_TYPES.FETCH_USER_REVIEWS, payload: data });
 

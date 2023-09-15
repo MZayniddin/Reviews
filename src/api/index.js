@@ -14,8 +14,9 @@ API.interceptors.request.use((req) => {
 
 // REVIEWS
 export const fetchAllReviews = () => API.get("/review/list");
-export const getUserReviews = (category) =>
-  API.get(`/review/profile/?category=${category}`);
+export const getUserReviews = (category, sortType) =>
+  API.get(`/review/profile/?category=${category}&sort=${sortType}`);
+  
 export const fetchReviewCategories = () => API.get("/category");
 
 // AUTH

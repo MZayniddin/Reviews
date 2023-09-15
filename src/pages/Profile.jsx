@@ -1,39 +1,32 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  Container,
-  Typography,
-  Grid,
-  Box,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
-} from "@mui/material";
+import { Container, Typography, Grid, Box } from "@mui/material";
 
 import { fetchUserReviews, getCategories } from "../store/review/review.action";
 import {
-  selectReviewCategories,
   selectReviews,
   selectReviewsIsLoading,
 } from "../store/review/review.selector";
 
-import UserReviews from "../components/user-reviews/UserReviews";
+// import UserReviews from "../components/user-reviews/UserReviews";
 import ReviewCard from "../components/review-card/ReviewCard";
 import Spinner from "../components/Spinner/Spinner";
+import CategorySelect from "../components/Select/CategorySelect";
+import ProfileSortSelect from "../components/Select/ProfileSortSelect";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const [activeCategory, setActiveCategory] = useState("");
-
-  const categories = useSelector(selectReviewCategories);
+  const [sortType, setSortType] = useState(-1);
 
   const handleCategoryChange = (e) => setActiveCategory(e.target.value);
 
+  const handleSortChange = (e) => setSortType(e.target.value);
+
   useEffect(() => {
-    dispatch(fetchUserReviews(activeCategory === "all" ? "" : activeCategory));
-  }, [activeCategory]);
+    dispatch(fetchUserReviews(activeCategory === "all" ? "" : activeCategory, sortType));
+  }, [activeCategory, sortType]);
 
   useEffect(() => {
     dispatch(getCategories());
@@ -50,32 +43,30 @@ const Profile = () => {
         My Reviews
       </Typography>
       {/* <UserReviews /> */}
-      <Box mb={5}>
-        <FormControl fullWidth>
-          <InputLabel id="category-label">Category</InputLabel>
-          <Select
-            onChange={handleCategoryChange}
-            labelId="category-label"
-            id="category"
-            label="Category"
-            value={activeCategory}
-          >
-            <MenuItem value="all">All</MenuItem>
-            {categories.map((category) => (
-              <MenuItem key={category._id} value={category.name}>
-                {category.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+
+      <Box mb={5} display="flex" justifyContent="space-between" gap="10px">
+        <CategorySelect
+          activeCategory={activeCategory}
+          handleCategoryChange={handleCategoryChange}
+        />
+        <ProfileSortSelect
+          sortType={sortType}
+          handleSortChange={handleSortChange}
+        />
       </Box>
 
       <Grid container spacing={2}>
-        {reviews.map((review) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={review._id}>
-            <ReviewCard review={review} />
-          </Grid>
-        ))}
+        {reviews.length ? (
+          reviews.map((review) => (
+            <Grid item xs={12} sm={6} md={4} lg={3} key={review._id}>
+              <ReviewCard review={review} />
+            </Grid>
+          ))
+        ) : (
+          <Typography mt={10} textAlign="center" width="100%">
+            You don&apos;t have reviews
+          </Typography>
+        )}
       </Grid>
     </Container>
   );
