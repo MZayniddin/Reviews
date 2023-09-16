@@ -130,7 +130,6 @@ const AuthForm = () => {
           appId="1485872782182119"
           callback={responseFacebook}
           fields="name,email,picture"
-          autoLoad={true}
           render={(renderProps) => (
             <Button
               sx={{ display: "flex", gap: 1 }}

@@ -4,6 +4,7 @@ import Auth from "../pages/Auth";
 import Home from "../pages/Home";
 import HomeLayout from "../layouts/HomeLayout";
 import Profile from "../pages/Profile";
+import DetailReview from "../pages/DetailReview";
 
 const root = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const root = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+      },
+      {
+        path: "/review/:id",
+        element: <DetailReview />,
       },
     ],
   },

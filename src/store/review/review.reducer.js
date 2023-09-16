@@ -18,8 +18,18 @@ export const reviewsReducer = (state = INITIAL_STATE_REVIEWS, action) => {
     case REVIEWS_ACTION_TYPES.FETCH_REVIEWS:
     case REVIEWS_ACTION_TYPES.FETCH_USER_REVIEWS:
       return { ...state, reviews: payload };
+    case REVIEWS_ACTION_TYPES.FETCH_ONE_REVIEW:
+      return { ...state, singleReview: payload };
     case REVIEWS_ACTION_TYPES.FETCH_REVIEW_CATEGORIES:
       return { ...state, categories: payload };
+    case REVIEWS_ACTION_TYPES.LIKE_REVIEW:
+      return {
+        ...state,
+        reviews: state.reviews.map((review) =>
+          review._id === payload._id ? payload : review
+        ),
+        singleReview: payload,
+      };
     default:
       return state;
   }

@@ -14,10 +14,12 @@ API.interceptors.request.use((req) => {
 
 // REVIEWS
 export const fetchAllReviews = () => API.get("/review/list");
+export const fetchReviewCategories = () => API.get("/category");
 export const getUserReviews = (category, sortType) =>
   API.get(`/review/profile/?category=${category}&sort=${sortType}`);
-  
-export const fetchReviewCategories = () => API.get("/category");
+
+export const getOneReview = (id) => API.get(`/review/${id}`);
+export const likeReview = (id) => API.patch(`/review/like/${id}`);
 
 // AUTH
 export const googleLogin = (token) =>

@@ -9,7 +9,6 @@ import {
   selectReviewsIsLoading,
 } from "../store/review/review.selector";
 
-// import UserReviews from "../components/user-reviews/UserReviews";
 import ReviewCard from "../components/review-card/ReviewCard";
 import Spinner from "../components/Spinner/Spinner";
 import CategorySelect from "../components/Select/CategorySelect";
@@ -42,7 +41,6 @@ const Profile = () => {
       <Typography mb={6} textAlign="center" variant="h4">
         My Reviews
       </Typography>
-      {/* <UserReviews /> */}
 
       <Box mb={5} display="flex" justifyContent="space-between" gap="10px">
         <CategorySelect

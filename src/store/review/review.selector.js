@@ -7,6 +7,11 @@ export const selectReviews = createSelector(
   (reviewsSlice) => reviewsSlice.reviews
 );
 
+export const selectSingleReview = createSelector(
+  [selectReviewReducer],
+  (reviewsSlice) => reviewsSlice.singleReview
+);
+
 export const selectReviewsIsLoading = createSelector(
   [selectReviewReducer],
   (reviewsSlice) => reviewsSlice.isLoading

@@ -6,7 +6,7 @@ const ReviewCard = ({ review }) => {
 
   return (
     <Paper elevation={3} sx={{ overflow: "hidden" }}>
-      <Link to={`review/${_id}`}>
+      <Link to={`/review/${_id}`}>
         <img
           className="review-card__img"
           src={
