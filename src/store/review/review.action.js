@@ -1,5 +1,5 @@
-import { REVIEWS_ACTION_TYPES } from "./review.types";
 import * as api from "../../api/index";
+import { REVIEWS_ACTION_TYPES } from "./review.types";
 
 export const fetchReviews = () => async (dispatch) => {
   try {
@@ -34,6 +34,16 @@ export const likeReview = (reviewId) => async (dispatch) => {
     const { data } = await api.likeReview(reviewId);
 
     dispatch({ type: REVIEWS_ACTION_TYPES.LIKE_REVIEW, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteReview = (reviewId) => async (dispatch) => {
+  try {
+    await api.deleteReview(reviewId);
+
+    dispatch({ type: REVIEWS_ACTION_TYPES.DELETE_REVIEW, payload: reviewId });
   } catch (error) {
     console.log(error);
   }

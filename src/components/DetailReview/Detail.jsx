@@ -1,19 +1,24 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Typography, Box, Button } from "@mui/material";
 
-import { likeReview } from "../../store/review/review.action";
+import { deleteReview, likeReview } from "../../store/review/review.action";
 import { formatRelative, subDays } from "date-fns";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Modal from "../Modal/SimpleModal";
 
 const Detail = ({ review }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = localStorage.getItem("profile")
     ? JSON.parse(localStorage.getItem("profile")).data
     : null;
 
+  const [showModal, setShowModal] = useState(false);
   const [likes, setLikes] = useState(review?.likes);
   const hasLikedReview = review?.likes.find((like) => like === user?.email);
 
@@ -24,6 +29,11 @@ const Detail = ({ review }) => {
     } else {
       setLikes([...review.likes, user.email]);
     }
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteReview(review._id));
+    navigate(-1);
   };
 
   const Likes = () => {
@@ -46,10 +56,12 @@ const Detail = ({ review }) => {
     return (
       <>
         <FavoriteBorderIcon fontSize="small" />
-        &nbsp;Like
+        &nbsp;{likes.length} {likes.length === 1 ? "Like" : "Likes"}
       </>
     );
   };
+
+  console.log(review)
 
   return (
     <>
@@ -74,16 +86,34 @@ const Detail = ({ review }) => {
       <Typography mb={2} variant="body1">
         {review.description}
       </Typography>
-      <Typography>Created By: {review.creator.displayName}</Typography>
-      <Typography variant="caption">
-        {formatRelative(
-          subDays(new Date(review.created_At), 3),
-          new Date(review.created_At)
-        )}
-      </Typography>
-      <Button onClick={handleLike} disabled={!user}>
-        <Likes />
-      </Button>
+      <div className="flex justify-between items-start flex-col sm:flex-row gap-2">
+        <Box>
+          <Typography>Created By: {review.creator.displayName}</Typography>
+          <Typography variant="caption">
+            {formatRelative(
+              subDays(new Date(review.created_At), 3),
+              new Date(review.created_At)
+            )}
+          </Typography>
+        </Box>
+        <Box display="flex" gap={1}>
+          <Button onClick={handleLike} disabled={!user}>
+            <Likes />
+          </Button>
+          {user && review.creator._id === user._id && (
+            <>
+              <Button color="error" onClick={() => setShowModal(true)}>
+                <DeleteIcon />
+              </Button>
+              <Modal
+                handleClose={() => setShowModal(false)}
+                open={showModal}
+                onSubmit={handleDelete}
+              />
+            </>
+          )}
+        </Box>
+      </div>
     </>
   );
 };

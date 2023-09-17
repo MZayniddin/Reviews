@@ -20,6 +20,7 @@ export const getUserReviews = (category, sortType) =>
 
 export const getOneReview = (id) => API.get(`/review/${id}`);
 export const likeReview = (id) => API.patch(`/review/like/${id}`);
+export const deleteReview = (id) => API.delete(`/review/delete/${id}`);
 
 // AUTH
 export const googleLogin = (token) =>
