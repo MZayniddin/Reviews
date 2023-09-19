@@ -35,6 +35,14 @@ export const reviewsReducer = (state = INITIAL_STATE_REVIEWS, action) => {
         ...state,
         reviews: state.reviews.filter((review) => review._id !== payload),
       };
+    case REVIEWS_ACTION_TYPES.COMMENT_REVIEW:
+      return {
+        ...state,
+        reviews: state.reviews.map((review) =>
+          review._id === payload._id ? payload : review
+        ),
+        singleReview: payload,
+      };
     default:
       return state;
   }

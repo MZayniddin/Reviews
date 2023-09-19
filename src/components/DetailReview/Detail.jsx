@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Typography, Box, Button } from "@mui/material";
 
 import { deleteReview, likeReview } from "../../store/review/review.action";
-import { formatRelative, subDays } from "date-fns";
+import { format } from "date-fns";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -61,8 +61,6 @@ const Detail = ({ review }) => {
     );
   };
 
-  console.log(review)
-
   return (
     <>
       <img
@@ -90,10 +88,7 @@ const Detail = ({ review }) => {
         <Box>
           <Typography>Created By: {review.creator.displayName}</Typography>
           <Typography variant="caption">
-            {formatRelative(
-              subDays(new Date(review.created_At), 3),
-              new Date(review.created_At)
-            )}
+            {format(new Date(review.created_At), "dd/MM/yyyy HH:mm")}
           </Typography>
         </Box>
         <Box display="flex" gap={1}>

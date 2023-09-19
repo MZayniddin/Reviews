@@ -49,6 +49,11 @@ export const deleteReview = (reviewId) => async (dispatch) => {
   }
 };
 
+export const commentReview = (comment, reviewId) => async (dispatch) => {
+  const { data } = await api.commentReview(comment, reviewId);
+  dispatch({ type: REVIEWS_ACTION_TYPES.COMMENT_REVIEW, payload: data });
+};
+
 export const fetchUserReviews = (category, sortType) => async (dispatch) => {
   try {
     dispatch({ type: REVIEWS_ACTION_TYPES.REVIEWS_START_LOADING });

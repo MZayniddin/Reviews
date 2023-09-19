@@ -12,6 +12,7 @@ import {
 
 import Spinner from "../components/Spinner/Spinner";
 import Detail from "../components/DetailReview/Detail";
+import CommentSection from "../components/DetailReview/CommentSection";
 
 const DetailReview = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const DetailReview = () => {
   return (
     <Container component="main">
       <Detail review={review} />
+      <CommentSection review={review} />
     </Container>
   );
 };

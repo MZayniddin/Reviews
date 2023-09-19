@@ -8,7 +8,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 300,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -20,16 +20,16 @@ const SimpleModal = ({ handleClose, open, onSubmit }) => {
     <Modal
       open={open}
       onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+      aria-labelledby="modal-modal-delete-review"
+      aria-describedby="modal-modal-for-delete-review"
     >
       <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
+        <Typography id="modal-modal-are-you-sure-to-delete" variant="h6" component="h2">
           Are you sure to delete?
         </Typography>
         <Box display="flex" mt={2} gap={1}>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button color="error" onClick={onSubmit}>
+          <Button variant="contained" color="error" onClick={onSubmit}>
             Delete
           </Button>
         </Box>
