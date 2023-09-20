@@ -1,15 +1,15 @@
 import * as api from "../../api/index";
 import { AUTH_ACTION_TYPES } from "./auth.types";
 
-export const googleAuth = (token) => async (dispatch) => {
+export const googleAuth = (token, navigate) => async (dispatch) => {
   try {
-    console.log(token)
     const { data } = await api.googleLogin(token);
-    console.log(data);
+
     dispatch({
       type: AUTH_ACTION_TYPES.USER_AUTH,
       payload: { data, token },
     });
+
   } catch (error) {
     console.log(error);
     alert("Something went wrong, Please try again");

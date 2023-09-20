@@ -10,7 +10,7 @@ const SearchBar = () => {
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
-  console.log(searchTerm);
+//   console.log(searchTerm);
   const { t } = useTranslation();
 
   return (

@@ -9,7 +9,6 @@ const LanguageSelect = () => {
   const langs = ["en", "uz"];
 
   const changeLang = (e) => {
-    console.log(e.target.value);
     i18n.changeLanguage(e.target.value || "en");
     setActiveLang(localStorage.getItem("lang"));
   };

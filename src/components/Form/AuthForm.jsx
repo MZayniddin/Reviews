@@ -41,7 +41,8 @@ const AuthForm = () => {
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
-        dispatch(googleAuth(tokenResponse?.access_token));
+        await dispatch(googleAuth(tokenResponse?.access_token));
+
         navigate("/");
       } catch (error) {
         console.log(error);

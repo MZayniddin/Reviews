@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import decode from "jwt-decode";
+import jwt_decode from "jwt-decode";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -65,10 +65,9 @@ const Header = () => {
 
   useEffect(() => {
     const token = user?.token;
-
     if (token) {
       try {
-        const decodedToken = decode(token);
+        const decodedToken = jwt_decode(token);
 
         if (decodedToken.exp * 1000 < new Date().getTime()) handleLogout();
       } catch (error) {
