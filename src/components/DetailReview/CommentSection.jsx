@@ -14,6 +14,8 @@ const CommentSection = ({ review }) => {
     ? JSON.parse(localStorage.getItem("profile")).data
     : null;
 
+  const hasCommented = comments.find((comment) => comment.user === user.email);
+
   return (
     <Box mt={2}>
       <Box
@@ -24,10 +26,13 @@ const CommentSection = ({ review }) => {
       >
         <Typography variant="h4">Comments:</Typography>
         {user && (
-          <Button onClick={() => setCommentModal(true)}>Add Comment</Button>
+          <Button onClick={() => setCommentModal(true)}>
+            {hasCommented ? "My Comment" : "Add comment"}
+          </Button>
         )}
         <CommentModal
           open={commentModal}
+          hasCommented={hasCommented}
           handleClose={() => setCommentModal(false)}
           reviewId={review._id}
         />

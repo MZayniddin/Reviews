@@ -23,19 +23,19 @@ const style = {
   p: 4,
 };
 
-const CommentModal = ({ open, handleClose, reviewId }) => {
+const CommentModal = ({ open, handleClose, reviewId, hasCommented }) => {
   const dispatch = useDispatch();
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(hasCommented ? hasCommented.rate : 0);
+  const [comment, setComment] = useState(hasCommented ? hasCommented.text : "");
 
   const handleComment = (e) => setComment(e.target.value);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const newComment = { rate: rating, text: comment };
     dispatch(commentReview(newComment, reviewId));
-    setComment("");
-    setRating(0);
+
     handleClose();
   };
 
@@ -52,7 +52,7 @@ const CommentModal = ({ open, handleClose, reviewId }) => {
           variant="h6"
           component="h2"
         >
-          Rate this review:
+          {hasCommented ? "Change Comment:" : "Rate this review:"}
         </Typography>
         <Box
           onSubmit={handleSubmit}
