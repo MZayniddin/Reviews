@@ -38,31 +38,35 @@ const CommentSection = ({ review }) => {
         />
       </Box>
       <Box display="flex" flexDirection="column" gap={2}>
-        {comments.map((c) => (
-          <Paper key={c._id} style={{ padding: "10px" }}>
-            <Box display="flex" alignItems="center" gap={1} mb={1}>
-              <Avatar style={{ background: randomColor(c._id) }}>
-                {c.user.charAt(0)}
-              </Avatar>
-              <Typography variant="body1">{c.user}</Typography>
-            </Box>
+        {comments.length ? (
+          comments.map((c) => (
+            <Paper key={c._id} style={{ padding: "10px" }}>
+              <Box display="flex" alignItems="center" gap={1} mb={1}>
+                <Avatar style={{ background: randomColor(c._id) }}>
+                  {c.user.charAt(0)}
+                </Avatar>
+                <Typography variant="body1">{c.user}</Typography>
+              </Box>
 
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-              mb={1}
-            >
-              <Stars rate={c.rate} />
-              <Typography variant="caption">
-                {formatDistance(new Date(c.date), new Date(), {
-                  addSuffix: true,
-                })}
-              </Typography>
-            </Box>
-            <Typography variant="body1">{c.text}</Typography>
-          </Paper>
-        ))}
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+                mb={1}
+              >
+                <Stars rate={c.rate} />
+                <Typography variant="caption">
+                  {formatDistance(new Date(c.date), new Date(), {
+                    addSuffix: true,
+                  })}
+                </Typography>
+              </Box>
+              <Typography variant="body1">{c.text}</Typography>
+            </Paper>
+          ))
+        ) : (
+          <Typography>No comments yet</Typography>
+        )}
       </Box>
     </Box>
   );

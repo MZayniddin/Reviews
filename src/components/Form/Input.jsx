@@ -9,6 +9,7 @@ const Input = ({
   autoFocus,
   type,
   handleShowPassword,
+  multiline
 }) => {
   return (
     <TextField
@@ -16,10 +17,10 @@ const Input = ({
       label={label}
       onChange={handleChange}
       autoFocus={autoFocus}
+      multiline={multiline}
       type={type}
       autoComplete="current-password"
       variant="outlined"
-      fullWidth
       required
       InputProps={
         name === "password"

@@ -26,7 +26,7 @@ import { toggleTheme } from "../store/theme/theme.action";
 import logo from "../assets/logo/logo.svg";
 
 const pages = ["Products", "Pricing", "Blog"];
-const settings = ["profile", "logout"];
+const settings = ["create_review", "profile", "logout"];
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -60,7 +60,8 @@ const Header = () => {
 
   const handleUserMenu = (e) => {
     if (e.target.dataset.name === "logout") handleLogout();
-    if (e.target.dataset.name === "profile") navigate("/profile");
+    else if (e.target.dataset.name === "profile") navigate("/profile");
+    else if (e.target.dataset.name === "create_review") navigate("/create");
   };
 
   useEffect(() => {
