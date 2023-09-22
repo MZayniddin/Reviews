@@ -61,7 +61,7 @@ const Header = () => {
   const handleUserMenu = (e) => {
     if (e.target.dataset.name === "logout") handleLogout();
     else if (e.target.dataset.name === "profile") navigate("/profile");
-    else if (e.target.dataset.name === "create_review") navigate("/create");
+    else if (e.target.dataset.name === "create_review") navigate("/review/create");
   };
 
   useEffect(() => {

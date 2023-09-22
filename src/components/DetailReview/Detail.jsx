@@ -1,14 +1,17 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { format } from "date-fns";
+
 import { Typography, Box, Button } from "@mui/material";
 
 import { deleteReview, likeReview } from "../../store/review/review.action";
-import { format } from "date-fns";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+
 import Modal from "../Modal/SimpleModal";
 
 const Detail = ({ review }) => {
@@ -99,6 +102,9 @@ const Detail = ({ review }) => {
             <>
               <Button color="error" onClick={() => setShowModal(true)}>
                 <DeleteIcon />
+              </Button>
+              <Button LinkComponent={Link} to={`/review/edit/${review._id}`}>
+                <EditIcon />
               </Button>
               <Modal
                 handleClose={() => setShowModal(false)}

@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { formatDistance, subDays } from "date-fns";
-import { Avatar, Box, Paper, Typography, Button } from "@mui/material";
+import { useSelector } from "react-redux";
+import { formatDistance } from "date-fns";
 import { randomColor } from "../../utils/randomColor";
+
+import { Avatar, Box, Paper, Typography, Button } from "@mui/material";
+import { selectReviewComments } from "../../store/review/review.selector";
+
 import Stars from "../Stars/Stars";
 import CommentModal from "../Modal/CommentModal";
-import { useSelector } from "react-redux";
-import { selectReviewComments } from "../../store/review/review.selector";
 
 const CommentSection = ({ review }) => {
   const comments = useSelector(selectReviewComments);
@@ -18,12 +20,7 @@ const CommentSection = ({ review }) => {
 
   return (
     <Box mt={2}>
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        mb={2}
-      >
+      <Box display="flex" alignItems="center" justifyContent="space-between">
         <Typography variant="h4">Comments:</Typography>
         {user && (
           <Button onClick={() => setCommentModal(true)}>
@@ -37,7 +34,7 @@ const CommentSection = ({ review }) => {
           reviewId={review._id}
         />
       </Box>
-      <Box display="flex" flexDirection="column" gap={2}>
+      <Box display="flex" flexDirection="column" gap={2} py={2}>
         {comments.length ? (
           comments.map((c) => (
             <Paper key={c._id} style={{ padding: "10px" }}>
