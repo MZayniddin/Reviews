@@ -1,10 +1,18 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import { Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
-import { useSelector } from "react-redux";
 import { selectReviewCategories } from "../../store/review/review.selector";
+import { getCategories } from "../../store/review/review.action";
+
 
 const CategorySelect = ({ activeCategory, handleCategoryChange }) => {
   const categories = useSelector(selectReviewCategories);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, []);
 
   return (
     <Box sx={{ maxWidth: 200 }} flex={1}>
@@ -14,8 +22,10 @@ const CategorySelect = ({ activeCategory, handleCategoryChange }) => {
           onChange={handleCategoryChange}
           labelId="category-label"
           id="category"
+          name="category"
           label="Category"
           value={activeCategory}
+          required
         >
           <MenuItem value="all">All</MenuItem>
           {categories.map((category) => (

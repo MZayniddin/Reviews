@@ -24,12 +24,10 @@ const Profile = () => {
   const handleSortChange = (e) => setSortType(e.target.value);
 
   useEffect(() => {
-    dispatch(fetchUserReviews(activeCategory === "all" ? "" : activeCategory, sortType));
+    dispatch(
+      fetchUserReviews(activeCategory === "all" ? "" : activeCategory, sortType)
+    );
   }, [activeCategory, sortType]);
-
-  useEffect(() => {
-    dispatch(getCategories());
-  }, []);
 
   const reviews = useSelector(selectReviews);
   const isLoading = useSelector(selectReviewsIsLoading);
