@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Container, Typography, Grid, Box } from "@mui/material";
 
-import { fetchUserReviews, getCategories } from "../store/review/review.action";
+import { fetchUserReviews } from "../store/review/review.action";
 import {
   selectReviews,
   selectReviewsIsLoading,
@@ -24,9 +24,7 @@ const Profile = () => {
   const handleSortChange = (e) => setSortType(e.target.value);
 
   useEffect(() => {
-    dispatch(
-      fetchUserReviews(activeCategory === "all" ? "" : activeCategory, sortType)
-    );
+    dispatch(fetchUserReviews(activeCategory, sortType));
   }, [activeCategory, sortType]);
 
   const reviews = useSelector(selectReviews);

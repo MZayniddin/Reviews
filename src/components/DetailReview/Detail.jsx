@@ -7,6 +7,7 @@ import { Typography, Box, Button } from "@mui/material";
 
 import { deleteReview, likeReview } from "../../store/review/review.action";
 
+import parse from "react-html-parser";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -20,6 +21,8 @@ const Detail = ({ review }) => {
   const user = localStorage.getItem("profile")
     ? JSON.parse(localStorage.getItem("profile")).data
     : null;
+
+  const renderedDescription = parse(`${review.description}`);
 
   const [showModal, setShowModal] = useState(false);
   const [likes, setLikes] = useState(review?.likes);
@@ -85,11 +88,11 @@ const Detail = ({ review }) => {
         </Typography>
       </Box>
       <Typography mb={2} variant="body1">
-        {review.description}
+        {renderedDescription}
       </Typography>
       <div className="flex justify-between items-start flex-col sm:flex-row gap-2">
         <Box>
-          <Typography>Created By: {review.creator.displayName}</Typography>
+          <Typography>Created By: {review.creator?.displayName}</Typography>
           <Typography variant="caption">
             {format(new Date(review.created_At), "dd/MM/yyyy HH:mm")}
           </Typography>
@@ -98,7 +101,7 @@ const Detail = ({ review }) => {
           <Button onClick={handleLike} disabled={!user}>
             <Likes />
           </Button>
-          {user && review.creator._id === user._id && (
+          {user && review.creator?._id === user._id && (
             <>
               <Button color="error" onClick={() => setShowModal(true)}>
                 <DeleteIcon />

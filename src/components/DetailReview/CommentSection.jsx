@@ -16,7 +16,7 @@ const CommentSection = ({ review }) => {
     ? JSON.parse(localStorage.getItem("profile")).data
     : null;
 
-  const hasCommented = comments.find((comment) => comment.user === user.email);
+  const hasCommented = comments.find((comment) => comment.user === user?.email);
 
   return (
     <Box mt={2}>

@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 
 import Auth from "../pages/Auth";
 import Home from "../pages/Home";
@@ -7,6 +7,10 @@ import Profile from "../pages/Profile";
 import DetailReview from "../pages/DetailReview";
 import CreateReview from "../pages/CreateReview";
 import EditReview from "../pages/EditReview";
+
+const user = localStorage.getItem("profile")
+  ? JSON.parse(localStorage.getItem("profile"))
+  : null;
 
 const root = createBrowserRouter([
   {
@@ -19,7 +23,7 @@ const root = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <Profile />,
+        element: user ? <Profile /> : <Navigate to="/auth" replace />,
       },
       {
         path: "/review/:id",
@@ -27,11 +31,11 @@ const root = createBrowserRouter([
       },
       {
         path: "review/create",
-        element: <CreateReview />,
+        element: user ? <CreateReview /> : <Navigate to="/auth" replace />,
       },
       {
         path: "review/edit/:id",
-        element: <EditReview />,
+        element: user ? <EditReview /> : <Navigate to="/auth" replace />,
       },
     ],
   },

@@ -8,6 +8,7 @@ const Input = ({
   handleChange,
   autoFocus,
   type,
+  value,
   handleShowPassword,
   multiline
 }) => {
@@ -19,6 +20,7 @@ const Input = ({
       autoFocus={autoFocus}
       multiline={multiline}
       type={type}
+      value={value}
       autoComplete="current-password"
       variant="outlined"
       required

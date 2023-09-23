@@ -1,9 +1,32 @@
-import React from 'react'
+import { useParams } from "react-router-dom";
+
+import { Container, Typography } from "@mui/material";
+
+import ReviewForm from "../components/Form/ReviewForm";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchReviews } from "../store/review/review.action";
 
 const EditReview = () => {
-  return (
-    <div>EditReview</div>
-  )
-}
+  const dispatch = useDispatch();
+  const { id } = useParams();
 
-export default EditReview
+  useEffect(() => {
+    dispatch(fetchReviews());
+  }, []);
+
+  const review = useSelector((state) =>
+    state.reviews.reviews.find((r) => r._id === id)
+  );
+
+  return (
+    <Container component="main">
+      <Typography variant="h6" my={2}>
+        Editing Review
+      </Typography>
+      <ReviewForm review={review} />
+    </Container>
+  );
+};
+
+export default EditReview;

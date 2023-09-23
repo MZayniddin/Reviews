@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "https://reviews-site.onrender.com" });
+// https://localhost:3000
+// http://reviews-site.onrender.com
+const API = axios.create({ baseURL: "http://localhost:3000" });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
@@ -15,14 +17,19 @@ API.interceptors.request.use((req) => {
 // REVIEWS
 export const fetchAllReviews = () => API.get("/review/list");
 export const fetchReviewCategories = () => API.get("/category");
-export const getUserReviews = (category, sortType) =>
-  API.get(`/review/profile/?category=${category}&sort=${sortType}`);
 
 export const getOneReview = (id) => API.get(`/review/${id}`);
 export const likeReview = (id) => API.patch(`/review/like/${id}`);
 export const deleteReview = (id) => API.delete(`/review/delete/${id}`);
+export const addReview = (formData) => API.post("/review/add", formData);
+export const updateReview = (id, formData) =>
+  API.put(`/review/update/${id}`, formData);
+
 export const commentReview = (comment, id) =>
   API.patch(`/review/comment/${id}`, comment);
+
+export const getUserReviews = (category, sortType) =>
+  API.get(`/review/profile/?category=${category}&sort=${sortType}`);
 
 // AUTH
 export const googleLogin = (token) =>

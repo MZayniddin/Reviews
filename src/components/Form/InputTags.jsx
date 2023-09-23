@@ -3,6 +3,11 @@ import { Box, TextField, Stack, Typography } from "@mui/material";
 
 import Cancel from "@mui/icons-material/Cancel";
 
+const KEY_CODES = {
+  ENTER: 13,
+  SPACE: 32,
+};
+
 const Tags = ({ data, handleDelete }) => {
   return (
     <Box
@@ -38,17 +43,18 @@ const InputTags = ({ reviewData, setReviewData }) => {
     setReviewData({ ...reviewData, tags: newtags });
   };
   const handleOnSubmit = (e) => {
-    e.preventDefault();
-    setReviewData({
-      ...reviewData,
-      tags: [...reviewData.tags, tagRef.current.value.trim()],
-    });
-    tagRef.current.value = "";
+    if (e.keyCode === KEY_CODES.ENTER || e.keyCode === KEY_CODES.SPACE) {
+      setReviewData({
+        ...reviewData,
+        tags: [...reviewData.tags, tagRef.current.value.trim()],
+      });
+      tagRef.current.value = "";
+    }
   };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <form onSubmit={handleOnSubmit}>
+      <div onKeyDown={handleOnSubmit}>
         <TextField
           inputRef={tagRef}
           fullWidth
@@ -70,7 +76,7 @@ const InputTags = ({ reviewData, setReviewData }) => {
             ),
           }}
         />
-      </form>
+      </div>
     </Box>
   );
 };

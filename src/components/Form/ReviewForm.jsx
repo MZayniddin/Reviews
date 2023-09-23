@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { FileUploader } from "react-drag-drop-files";
 
 import { Box, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 import { upload } from "../../api";
+import { createReview, updateReview } from "../../store/review/review.action";
 
 import TextEditor from "../TextEditor/TextEditor";
 import CategorySelect from "../Select/CategorySelect";
 import GradeSelect from "../Select/GradeSelect";
 import InputTags from "./InputTags";
 import Input from "./Input";
+import { useNavigate } from "react-router-dom";
 
 const initialStateForm = {
   title: "",
@@ -24,10 +27,12 @@ const initialStateForm = {
 
 const fileTypes = ["JPEG", "JPG", "PNG"];
 
-const ReviewForm = () => {
+const ReviewForm = ({ review }) => {
   const theme = useTheme();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [reviewData, setReviewData] = useState(initialStateForm);
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState(review ? review?.image : null);
 
   const handleChange = (e) => {
     setReviewData({ ...reviewData, [e.target.name]: e.target.value });
@@ -44,8 +49,25 @@ const ReviewForm = () => {
       console.log(error);
     }
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    reviewData.image = file;
+    if (review) {
+      dispatch(updateReview(review._id, reviewData));
+      navigate(`/review/${review._id}`);
+    } else {
+      dispatch(createReview(reviewData));
+    }
+  };
+
+  useEffect(() => {
+    if (review) setReviewData(review);
+  }, [review]);
+
   return (
     <Box
+      onSubmit={handleSubmit}
       component="form"
       bgcolor={theme.palette.action.disabledBackground}
       p={3}
@@ -62,7 +84,6 @@ const ReviewForm = () => {
           name="file"
           handleChange={handleCoverChange}
           types={fileTypes}
-          required={true}
         />
 
         <img
@@ -82,6 +103,7 @@ const ReviewForm = () => {
           type="text"
           name="title"
           label="Review Title"
+          value={reviewData.title}
           handleChange={handleChange}
           multiline={true}
         />
@@ -90,6 +112,7 @@ const ReviewForm = () => {
           type="text"
           name="name"
           label="Name of the piece of art"
+          value={reviewData.name}
           handleChange={handleChange}
         />
 
@@ -108,8 +131,8 @@ const ReviewForm = () => {
 
       <TextEditor reviewData={reviewData} setReviewData={setReviewData} />
 
-      <Button sx={{ mt: 3 }} variant="contained">
-        Publish
+      <Button sx={{ mt: 3 }} variant="contained" type="submit">
+        {review ? "Save" : "Publish"}
       </Button>
     </Box>
   );

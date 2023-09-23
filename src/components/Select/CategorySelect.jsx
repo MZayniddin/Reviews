@@ -1,18 +1,22 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+
 import { Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 import { selectReviewCategories } from "../../store/review/review.selector";
 import { getCategories } from "../../store/review/review.action";
 
-
 const CategorySelect = ({ activeCategory, handleCategoryChange }) => {
   const categories = useSelector(selectReviewCategories);
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     dispatch(getCategories());
   }, []);
+
+  let isProfilPage = pathname.includes("/profile");
 
   return (
     <Box sx={{ maxWidth: 200 }} flex={1}>
@@ -27,9 +31,9 @@ const CategorySelect = ({ activeCategory, handleCategoryChange }) => {
           value={activeCategory}
           required
         >
-          <MenuItem value="all">All</MenuItem>
+          {isProfilPage && <MenuItem value="">All</MenuItem>}
           {categories.map((category) => (
-            <MenuItem key={category._id} value={category.name}>
+            <MenuItem key={category._id} value={category._id}>
               {category.name}
             </MenuItem>
           ))}

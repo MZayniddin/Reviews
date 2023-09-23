@@ -23,6 +23,8 @@ export const reviewsReducer = (state = INITIAL_STATE_REVIEWS, action) => {
     case REVIEWS_ACTION_TYPES.FETCH_REVIEW_CATEGORIES:
       return { ...state, categories: payload };
     case REVIEWS_ACTION_TYPES.LIKE_REVIEW:
+    case REVIEWS_ACTION_TYPES.UPDATE_REVIEW:
+    case REVIEWS_ACTION_TYPES.COMMENT_REVIEW:
       return {
         ...state,
         reviews: state.reviews.map((review) =>
@@ -35,14 +37,9 @@ export const reviewsReducer = (state = INITIAL_STATE_REVIEWS, action) => {
         ...state,
         reviews: state.reviews.filter((review) => review._id !== payload),
       };
-    case REVIEWS_ACTION_TYPES.COMMENT_REVIEW:
-      return {
-        ...state,
-        reviews: state.reviews.map((review) =>
-          review._id === payload._id ? payload : review
-        ),
-        singleReview: payload,
-      };
+    case REVIEWS_ACTION_TYPES.CREATE_REVIEW:
+      return { ...state, reviews: [...state.reviews, payload] };
+
     default:
       return state;
   }

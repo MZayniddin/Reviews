@@ -68,6 +68,26 @@ export const fetchUserReviews = (category, sortType) => async (dispatch) => {
   }
 };
 
+export const createReview = (formData) => async (dispatch) => {
+  try {
+    const { data } = await api.addReview(formData);
+    console.log(data);
+    dispatch({ type: REVIEWS_ACTION_TYPES.CREATE_REVIEW, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateReview = (reviewId, formData) => async (dispatch) => {
+  try {
+    const { data } = await api.updateReview(reviewId, formData);
+    console.log(data);
+    dispatch({ type: REVIEWS_ACTION_TYPES.UPDATE_REVIEW, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getCategories = () => async (dispatch) => {
   try {
     const { data } = await api.fetchReviewCategories();
