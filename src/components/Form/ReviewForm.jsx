@@ -57,7 +57,7 @@ const ReviewForm = ({ review }) => {
       dispatch(updateReview(review._id, reviewData));
       navigate(`/review/${review._id}`);
     } else {
-      dispatch(createReview(reviewData));
+      dispatch(createReview(reviewData, navigate));
     }
   };
 

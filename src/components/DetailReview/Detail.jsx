@@ -81,13 +81,14 @@ const Detail = ({ review }) => {
       <Typography variant="h3" mt={2}>
         {review.title}
       </Typography>
-      <Box mb={2} display="flex" gap={1}>
+      <Box mb={1} display="flex" gap={1}>
         <Typography variant="caption">{review.name}</Typography>
         <Typography variant="body2">
           {review.tags.map((tag) => `#${tag} `)}
         </Typography>
       </Box>
-      <Typography mb={2} variant="body1">
+      <Typography mb={2}>Graded: {review.grade}/10</Typography>
+      <Typography mb={2} variant="body1" component="div">
         {renderedDescription}
       </Typography>
       <div className="flex justify-between items-start flex-col sm:flex-row gap-2">

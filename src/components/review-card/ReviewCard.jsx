@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import { Paper, Typography, Box } from "@mui/material";
 
+import parser from "react-html-parser";
+
 const ReviewCard = ({ review }) => {
   const { title, image, description, _id, creator, name } = review;
+
+  const renderedDescription = parser(description);
 
   return (
     <Paper elevation={3} sx={{ overflow: "hidden" }}>
@@ -20,7 +24,7 @@ const ReviewCard = ({ review }) => {
             {title}
           </Typography>
           <Typography variant="body2" className="review-card__desc-text" mb={2}>
-            {description}
+            {renderedDescription}
           </Typography>
           <Box sx={{ display: "flex", gap: 1 }}>
             <Typography variant="body2">

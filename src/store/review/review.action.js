@@ -68,10 +68,11 @@ export const fetchUserReviews = (category, sortType) => async (dispatch) => {
   }
 };
 
-export const createReview = (formData) => async (dispatch) => {
+export const createReview = (formData, navigate) => async (dispatch) => {
   try {
     const { data } = await api.addReview(formData);
-    console.log(data);
+    navigate(`/review/${data._id}`);
+
     dispatch({ type: REVIEWS_ACTION_TYPES.CREATE_REVIEW, payload: data });
   } catch (error) {
     console.log(error);
