@@ -2,7 +2,7 @@ import { Box, Grid, Typography } from "@mui/material";
 
 import { useSelector } from "react-redux";
 import { selectReviews } from "../../store/review/review.selector";
-import ReviewCard from "../review-card/ReviewCard";
+import ReviewCard from "../ReviewCard/ReviewCard";
 
 const RecentReviews = () => {
   let reviews = useSelector(selectReviews);

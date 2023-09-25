@@ -9,7 +9,7 @@ import {
   selectReviewsIsLoading,
 } from "../store/review/review.selector";
 
-import ReviewCard from "../components/review-card/ReviewCard";
+import ReviewCard from "../components/ReviewCard/ReviewCard";
 import Spinner from "../components/Spinner/Spinner";
 import CategorySelect from "../components/Select/CategorySelect";
 import ProfileSortSelect from "../components/Select/ProfileSortSelect";

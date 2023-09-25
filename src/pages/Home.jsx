@@ -5,7 +5,8 @@ import { useDispatch } from "react-redux";
 import { fetchReviews } from "../store/review/review.action";
 
 import Intro from "../components/Intro/Intro";
-import RecentReviews from "../components/recent-reviews/RecentReviews";
+import RecentReviews from "../components/RecentReviews/RecentReviews";
+import HighGradedReviews from "../components/HighGradedReviews/HighGradedReviews";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const Home = () => {
     <Container component="main">
       <Intro />
       <RecentReviews />
+      <HighGradedReviews />
     </Container>
   );
 };

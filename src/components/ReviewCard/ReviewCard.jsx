@@ -4,7 +4,7 @@ import { Paper, Typography, Box } from "@mui/material";
 import parser from "react-html-parser";
 
 const ReviewCard = ({ review }) => {
-  const { title, image, description, _id, creator, name } = review;
+  const { title, image, description, _id, creator, name, grade } = review;
 
   const renderedDescription = parser(description);
 
@@ -31,12 +31,12 @@ const ReviewCard = ({ review }) => {
           >
             {renderedDescription}
           </Typography>
-          <Box sx={{ display: "flex", gap: 1 }}>
+          <Box>
             <Typography variant="body2">
               {creator?.displayName} reviewed
             </Typography>
             <Typography variant="body2" fontWeight="bold">
-              {name}
+              {name} {grade}/10
             </Typography>
           </Box>
         </Box>

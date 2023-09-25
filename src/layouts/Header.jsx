@@ -61,7 +61,8 @@ const Header = () => {
   const handleUserMenu = (e) => {
     if (e.target.dataset.name === "logout") handleLogout();
     else if (e.target.dataset.name === "profile") navigate("/profile");
-    else if (e.target.dataset.name === "create_review") navigate("/review/create");
+    else if (e.target.dataset.name === "create_review")
+      navigate("/review/create");
   };
 
   useEffect(() => {
@@ -86,43 +87,6 @@ const Header = () => {
           disableGutters
           sx={{ display: { xs: "flex" }, justifyContent: "space-between" }}
         >
-          <Box sx={{ display: { xs: "block", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-
           <Typography noWrap component={Link} to="/">
             <img width={130} src={logo} alt="Reviews Logo" />
           </Typography>
