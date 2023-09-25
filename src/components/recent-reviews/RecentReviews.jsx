@@ -10,7 +10,7 @@ const RecentReviews = () => {
   if (reviews.length > 8) reviews = reviews.slice(0, 8);
 
   return (
-    <Box component="section" py={4}>
+    <Box component="section" py={2} mt={3}>
       <Typography variant="h4" textAlign="center" mb={5}>
         Recent Reviews
       </Typography>

@@ -23,7 +23,12 @@ const ReviewCard = ({ review }) => {
           <Typography variant="h6" mb={1}>
             {title}
           </Typography>
-          <Typography variant="body2" className="review-card__desc-text" mb={2}>
+          <Typography
+            component="div"
+            variant="body2"
+            className="review-card__desc-text"
+            mb={2}
+          >
             {renderedDescription}
           </Typography>
           <Box sx={{ display: "flex", gap: 1 }}>
