@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Paper, Typography, Box } from "@mui/material";
 
 import parser from "react-html-parser";
@@ -6,6 +7,7 @@ import parser from "react-html-parser";
 const ReviewCard = ({ review }) => {
   const { title, image, description, _id, creator, name, grade } = review;
 
+  const { t } = useTranslation();
   const renderedDescription = parser(description);
 
   return (
@@ -33,7 +35,7 @@ const ReviewCard = ({ review }) => {
           </Typography>
           <Box>
             <Typography variant="body2">
-              {creator?.displayName} reviewed
+              {creator?.displayName} {t("reviewed")}
             </Typography>
             <Typography variant="body2" fontWeight="bold">
               {name} {grade}/10

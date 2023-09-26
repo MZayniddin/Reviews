@@ -19,6 +19,7 @@ import { FaFacebookF } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
 import Input from "./Input";
+import { useTranslation } from "react-i18next";
 
 const initialState = {
   displayName: "",
@@ -30,6 +31,7 @@ const initialState = {
 const AuthForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState(initialState);
@@ -75,19 +77,20 @@ const AuthForm = () => {
     <Paper
       elevation={3}
       sx={{
+        width: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         padding: 2,
-        mt: 8,
+        my: 1,
       }}
     >
       <Avatar sx={{ my: 1 }}>
         <LockOutlinedIcon />
       </Avatar>
       <Typography mb={3} variant="h6">
-        Sign {isSignUp ? "Up" : "In"}
+        {isSignUp ? t("sign_up") : t("sign_in")}
       </Typography>
       <FormControl
         component="form"
@@ -128,7 +131,7 @@ const AuthForm = () => {
           />
         )}
         <FacebookLogin
-          appId="1485872782182119"
+          appId={import.meta.env.VITE_FACEBOOK_APP_ID}
           callback={responseFacebook}
           fields="name,email,picture"
           render={(renderProps) => (
@@ -139,7 +142,7 @@ const AuthForm = () => {
               onClick={renderProps.onClick}
             >
               <FaFacebookF className="text-white text-xl" />
-              Facebook Sign In
+              {t("facebook_sign_in")}
             </Button>
           )}
         />
@@ -151,15 +154,15 @@ const AuthForm = () => {
           fullWidth
         >
           <FcGoogle className="text-2xl" />
-          Google Sign In
+          {t("google_sign_in")}
         </Button>
         <Button type="submit" fullWidth variant="contained" color="primary">
-          Sign {isSignUp ? "Up" : "In"}
+          {isSignUp ? t("sign_up") : t("sign_in")}
         </Button>
         <Button onClick={switchMode}>
           {isSignUp
-            ? "Already have an account? Sign In"
-            : "Don't have an account? Sign Up"}
+            ? t("already_have_an_account?_sign_in")
+            : t("dont_have_an_account?_sign_up")}
         </Button>
       </FormControl>
     </Paper>

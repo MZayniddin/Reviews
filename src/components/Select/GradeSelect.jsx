@@ -1,9 +1,12 @@
+import { useTranslation } from "react-i18next";
 import { FormControl, InputLabel, Select, MenuItem, Box } from "@mui/material";
+
 const GradeSelect = ({ grade, handleGradeChange }) => {
+  const { t } = useTranslation();
   return (
     <Box maxWidth={90} flex={1}>
       <FormControl fullWidth>
-        <InputLabel id="review-grade-label">Grade</InputLabel>
+        <InputLabel id="review-grade-label">{t("grade")}</InputLabel>
         <Select
           name="grade"
           onChange={handleGradeChange}

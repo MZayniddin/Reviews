@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Box, Typography, Grid } from "@mui/material";
 import ReviewCard from "../ReviewCard/ReviewCard";
@@ -6,6 +7,7 @@ import ReviewCard from "../ReviewCard/ReviewCard";
 import { fetchHighGradedReviews } from "../../api";
 
 const HighGradedReviews = () => {
+  const { t } = useTranslation();
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
@@ -19,7 +21,7 @@ const HighGradedReviews = () => {
   return (
     <Box component="section" py={8}>
       <Typography textAlign="center" variant="h4" mb={5}>
-        High Graded Reviews
+        {t("high_graded_reviews")}
       </Typography>
       <Grid container spacing={2}>
         {reviews.map((review) => (

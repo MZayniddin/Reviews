@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -16,6 +18,7 @@ const style = {
 };
 
 const SimpleModal = ({ handleClose, open, onSubmit }) => {
+  const { t } = useTranslation();
   return (
     <Modal
       open={open}
@@ -24,13 +27,17 @@ const SimpleModal = ({ handleClose, open, onSubmit }) => {
       aria-describedby="modal-modal-for-delete-review"
     >
       <Box sx={style}>
-        <Typography id="modal-modal-are-you-sure-to-delete" variant="h6" component="h2">
-          Are you sure to delete?
+        <Typography
+          id="modal-modal-are-you-sure-to-delete"
+          variant="h6"
+          component="h2"
+        >
+          {t("are_you_sure_to_delete?")}
         </Typography>
         <Box display="flex" mt={2} gap={1}>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>{t("cancel")}</Button>
           <Button variant="contained" color="error" onClick={onSubmit}>
-            Delete
+            {t("delete")}
           </Button>
         </Box>
       </Box>

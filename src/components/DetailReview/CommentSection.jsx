@@ -8,8 +8,10 @@ import { selectReviewComments } from "../../store/review/review.selector";
 
 import Stars from "../Stars/Stars";
 import CommentModal from "../Modal/CommentModal";
+import { useTranslation } from "react-i18next";
 
 const CommentSection = ({ review }) => {
+  const { t } = useTranslation();
   const comments = useSelector(selectReviewComments);
   const [commentModal, setCommentModal] = useState(false);
   const user = localStorage.getItem("profile")
@@ -21,10 +23,10 @@ const CommentSection = ({ review }) => {
   return (
     <Box mt={2}>
       <Box display="flex" alignItems="center" justifyContent="space-between">
-        <Typography variant="h4">Comments:</Typography>
+        <Typography variant="h4">{t("comments")}</Typography>
         {user && (
           <Button onClick={() => setCommentModal(true)}>
-            {hasCommented ? "My Comment" : "Add comment"}
+            {hasCommented ? t("my_comment") : t("add_comment")}
           </Button>
         )}
         <CommentModal
@@ -62,7 +64,7 @@ const CommentSection = ({ review }) => {
             </Paper>
           ))
         ) : (
-          <Typography>No comments yet</Typography>
+          <Typography>{t("no_comments_yet")}</Typography>
         )}
       </Box>
     </Box>

@@ -10,7 +10,6 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -25,7 +24,6 @@ import { toggleTheme } from "../store/theme/theme.action";
 // LOGO
 import logo from "../assets/logo/logo.svg";
 
-const pages = ["Products", "Pricing", "Blog"];
 const settings = ["create_review", "profile", "logout"];
 
 const Header = () => {
@@ -34,17 +32,12 @@ const Header = () => {
   const location = useLocation();
   const { t } = useTranslation();
   const [user, setUser] = useState(localStorage.getItem("profile") || null);
-  const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [themeChecked, setThemeChecked] = useState(
     localStorage.getItem("theme") === "dark"
   );
 
-  const handleOpenNavMenu = (event) => setAnchorElNav(event.currentTarget);
-
   const handleOpenUserMenu = (event) => setAnchorElUser(event.currentTarget);
-
-  const handleCloseNavMenu = () => setAnchorElNav(null);
 
   const handleCloseUserMenu = () => setAnchorElUser(null);
 
@@ -106,7 +99,7 @@ const Header = () => {
               </Tooltip>
             ) : (
               <Button sx={{ color: "white" }} component={Link} to="/auth">
-                Sign in
+                {t("sign_in")}
               </Button>
             )}
 

@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { format } from "date-fns";
+import parse from "react-html-parser";
 
 import { Typography, Box, Button } from "@mui/material";
 
 import { deleteReview, likeReview } from "../../store/review/review.action";
 
-import parse from "react-html-parser";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -18,6 +19,7 @@ import Modal from "../Modal/SimpleModal";
 const Detail = ({ review }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const user = localStorage.getItem("profile")
     ? JSON.parse(localStorage.getItem("profile")).data
     : null;
@@ -39,7 +41,7 @@ const Detail = ({ review }) => {
 
   const handleDelete = () => {
     dispatch(deleteReview(review._id));
-    navigate(-1);
+    navigate("/profile");
   };
 
   const Likes = () => {
@@ -49,20 +51,20 @@ const Detail = ({ review }) => {
           <FavoriteIcon fontSize="small" />
           &nbsp;
           {likes.length > 2
-            ? `You and ${likes.length - 1} others`
-            : `${likes.length} like${likes.length > 1 ? "s" : ""}`}
+            ? `${t("you_and")} ${likes.length - 1} ${t("others")}`
+            : `${likes.length} ${likes.length > 1 ? t("likes") : t("like")}`}
         </>
       ) : (
         <>
           <FavoriteBorderIcon fontSize="small" />
-          &nbsp;{likes.length} {likes.length === 1 ? "Like" : "Likes"}
+          &nbsp;{likes.length} {likes.length === 1 ? t("like") : t("likes")}
         </>
       );
     }
     return (
       <>
         <FavoriteBorderIcon fontSize="small" />
-        &nbsp;{likes.length} {likes.length === 1 ? "Like" : "Likes"}
+        &nbsp;{likes.length} {likes.length === 1 ? t("like") : t("likes")}
       </>
     );
   };
@@ -87,13 +89,17 @@ const Detail = ({ review }) => {
           {review.tags.map((tag) => `#${tag} `)}
         </Typography>
       </Box>
-      <Typography mb={2}>Graded: {review.grade}/10</Typography>
+      <Typography mb={2}>
+        {t("graded")}: {review.grade}/10
+      </Typography>
       <Typography mb={2} variant="body1" component="div">
         {renderedDescription}
       </Typography>
       <div className="flex justify-between items-start flex-col sm:flex-row gap-2">
         <Box>
-          <Typography>Created By: {review.creator?.displayName}</Typography>
+          <Typography>
+            {t("created_by")} {review.creator?.displayName}
+          </Typography>
           <Typography variant="caption">
             {format(new Date(review.created_At), "dd/MM/yyyy HH:mm")}
           </Typography>

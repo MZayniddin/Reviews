@@ -1,83 +1,62 @@
-import { useRef } from "react";
-import { Box, TextField, Stack, Typography } from "@mui/material";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
-import Cancel from "@mui/icons-material/Cancel";
+import Chip from "@mui/material/Chip";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 
-const KEY_CODES = {
-  ENTER: 13,
-  SPACE: 32,
-};
-
-const Tags = ({ data, handleDelete }) => {
-  return (
-    <Box
-      sx={{
-        background: "#283240",
-        height: "100%",
-        display: "flex",
-        padding: "0.4rem",
-        margin: "0 0.5rem 0 0",
-        justifyContent: "center",
-        alignContent: "center",
-        color: "#ffffff",
-      }}
-    >
-      <Stack direction="row" gap={1}>
-        <Typography>{data}</Typography>
-        <Cancel
-          sx={{ cursor: "pointer" }}
-          onClick={() => {
-            handleDelete(data);
-          }}
-        />
-      </Stack>
-    </Box>
-  );
-};
+import { selectReviews } from "../../store/review/review.selector";
 
 const InputTags = ({ reviewData, setReviewData }) => {
-  const tagRef = useRef();
+  const reviews = useSelector(selectReviews);
+  const { t } = useTranslation();
 
-  const handleDelete = (value) => {
-    const newtags = reviewData.tags.filter((val) => val !== value);
-    setReviewData({ ...reviewData, tags: newtags });
-  };
-  const handleOnSubmit = (e) => {
-    if (e.keyCode === KEY_CODES.ENTER || e.keyCode === KEY_CODES.SPACE) {
-      setReviewData({
-        ...reviewData,
-        tags: [...reviewData.tags, tagRef.current.value.trim()],
-      });
-      tagRef.current.value = "";
+  const getTags = (reviews) => {
+    let tags = [];
+    for (const item of reviews) {
+      for (const tag of item.tags) {
+        tags.push(tag);
+      }
     }
+    return tags;
   };
+
+  const options = getTags(reviews);
+
+  console.log(reviewData.tags);
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <div onKeyDown={handleOnSubmit}>
+    <Autocomplete
+      sx={{ flexGrow: 1 }}
+      multiple
+      id="tags-standard"
+      options={options}
+      freeSolo
+      onChange={(e, newValue) => {
+        setReviewData({ ...reviewData, tags: [...newValue] });
+      }}
+      value={reviewData.tags}
+      limitTags={4}
+      getOptionLabel={(option) => option}
+      renderTags={(value, getTagProps) =>
+        value.map((option, index) => (
+          <Chip
+            key={index}
+            variant="outlined"
+            label={option}
+            {...getTagProps({ index })}
+          />
+        ))
+      }
+      renderInput={(params) => (
         <TextField
-          inputRef={tagRef}
-          fullWidth
+          {...params}
           variant="standard"
-          size="small"
-          sx={{ margin: "1rem 0" }}
-          margin="none"
-          disabled={reviewData.tags.length > 3}
-          placeholder={reviewData.tags.length < 4 ? "Add up to 4 tags..." : ""}
-          InputProps={{
-            startAdornment: (
-              <Box sx={{ margin: "0 0.2rem 0 0", display: "flex" }}>
-                {reviewData.tags.map((data, index) => {
-                  return (
-                    <Tags data={data} handleDelete={handleDelete} key={index} />
-                  );
-                })}
-              </Box>
-            ),
-          }}
+          label={t("tags")}
+          //   placeholder="Add up 4 tags.."
         />
-      </div>
-    </Box>
+      )}
+    />
   );
 };
 

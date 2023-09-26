@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { FileUploader } from "react-drag-drop-files";
 
 import { Box, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 import { upload } from "../../api";
-import { createReview, updateReview } from "../../store/review/review.action";
+import {
+  createReview,
+  fetchReviews,
+  updateReview,
+} from "../../store/review/review.action";
 
 import TextEditor from "../TextEditor/TextEditor";
 import CategorySelect from "../Select/CategorySelect";
@@ -29,6 +34,7 @@ const fileTypes = ["JPEG", "JPG", "PNG"];
 
 const ReviewForm = ({ review }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [reviewData, setReviewData] = useState(initialStateForm);
@@ -64,6 +70,10 @@ const ReviewForm = ({ review }) => {
   useEffect(() => {
     if (review) setReviewData(review);
   }, [review]);
+
+  useEffect(() => {
+    dispatch(fetchReviews());
+  }, []);
 
   return (
     <Box
@@ -102,7 +112,7 @@ const ReviewForm = ({ review }) => {
         <Input
           type="text"
           name="title"
-          label="Review Title"
+          label={t("review_title")}
           value={reviewData.title}
           handleChange={handleChange}
           multiline={true}
@@ -111,7 +121,7 @@ const ReviewForm = ({ review }) => {
         <Input
           type="text"
           name="name"
-          label="Name of the piece of art"
+          label={t("name_of_the_piece_of_art")}
           value={reviewData.name}
           handleChange={handleChange}
         />
@@ -132,7 +142,7 @@ const ReviewForm = ({ review }) => {
       <TextEditor reviewData={reviewData} setReviewData={setReviewData} />
 
       <Button sx={{ mt: 3 }} variant="contained" type="submit">
-        {review ? "Save" : "Publish"}
+        {review ? t("save") : t("publish")}
       </Button>
     </Box>
   );

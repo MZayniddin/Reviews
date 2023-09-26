@@ -12,7 +12,7 @@ import "./utils/locales/i18next";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <GoogleOAuthProvider clientId="944821402675-oavutcnpqj1qqhdkrhpduug4gsmg3tq2.apps.googleusercontent.com">
+  <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
     <React.StrictMode>
       <Provider store={store}>
         <App />
