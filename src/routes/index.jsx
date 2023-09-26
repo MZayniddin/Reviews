@@ -7,6 +7,7 @@ import Profile from "../pages/Profile";
 import DetailReview from "../pages/DetailReview";
 import CreateReview from "../pages/CreateReview";
 import EditReview from "../pages/EditReview";
+import NotFound from "../pages/NotFound";
 
 const root = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const root = createBrowserRouter([
   {
     path: "/auth",
     element: <Auth />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 

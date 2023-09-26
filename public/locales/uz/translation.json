@@ -39,5 +39,7 @@
   "others": "boshqalar",
   "no_comments_yet": "Hozircha izohlar yo'q",
   "delete": "O'chirish",
-  "are_you_sure_to_delete?": "O'chirishga ishonchingiz komilmi?"
+  "are_you_sure_to_delete?": "O'chirishga ishonchingiz komilmi?",
+  "page_not_found": "Sahifa Topilmadi",
+  "go_to_the_home_page": "Bosh sahifaga qaytish"
 }

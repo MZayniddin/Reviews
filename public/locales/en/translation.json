@@ -39,5 +39,7 @@
   "others": "others",
   "no_comments_yet": "No comments yet",
   "delete": "Delete",
-  "are_you_sure_to_delete?": "Are you sure to delete?"
+  "are_you_sure_to_delete?": "Are you sure to delete?",
+  "page_not_found": "Page Not Found",
+  "go_to_the_home_page": "Go to the home page"
 }
